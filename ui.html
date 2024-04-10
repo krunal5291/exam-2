@@ -1,108 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</head>
-<style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <style>
     div {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
     }
 
     #ui div {
-        width: 300px;
+      width: 300px;
     }
-    
-    #ui{
-       gap: 20px;
-       width: 100%;
-       padding: 20px; 
+
+    #ui {
+      gap: 20px;
+      width: 100%;
+      padding: 20px;
     }
 
     img {
-        width: 100%;
+      width: 100%;
     }
-</style>
+  </style>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="ui.html">books</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="buy.html">buy
-                </a>
-              </li>
-
-            </ul>
-
-          </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="ui.html"
+                >books</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="buy.html"
+                >buy
+              </a>
+            </li>
+          </ul>
         </div>
-      </nav>
-    <div id="ui">
+      </div>
+      <form class="form-inline my-2 my-lg-0" id="serach">
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          id="Search"
+        />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          Search
+        </button>
+      </form>
+    </nav>
 
+    <div class="filter p-3 btn-group">
+      <button class="btn btn-primary" id="lth">Low To High</button>
+      <button class="btn btn-primary" id="htl">High To Low</button>
+      <button class="btn btn-primary" id="Historical">Historical</button>
+      <button class="btn btn-primary" id="Horror">Horror</button>
+      <button class="btn btn-primary" id="Science">Science</button>
     </div>
-</body>
+    <div id="ui" class="row gap-5 justify-content-center"></div>
 
-<script>
-    let books = JSON.parse(localStorage.getItem('books')) || []
-    let buys = []
+    <div id="ui" class="row gap-5 justify-content-center"></div>
+  </body>
+
+  <script>
+    let books = JSON.parse(localStorage.getItem("books")) || [];
+    let buys = [];
 
     let ui = (books) => {
-        document.getElementById("ui").innerHTML = ""
-        books.map((ele, i) => {
-            let index = document.createElement('h6');
-            index.innerHTML = i + 1
+      document.getElementById("ui").innerHTML = "";
+      books.map((ele, i) => {
+        let index = document.createElement("h6");
+        index.innerHTML = i + 1;
 
-            let img = document.createElement('img');
-            img.src = ele.img
-            let titel = document.createElement('h1');
-            titel.innerHTML = ele.titel
+        let img = document.createElement("img");
+        img.src = ele.img;
+        let titel = document.createElement("h1");
+        titel.innerHTML = ele.titel;
 
-            let price = document.createElement('h4');
-            price.innerHTML = ele.price
+        let price = document.createElement("h4");
+        price.innerHTML = ele.price;
 
+        let category = document.createElement("p");
+        category.innerHTML = ele.category;
 
-            let category = document.createElement('p');
-            category.innerHTML = ele.category
+        let del = document.createElement("button");
+        del.innerHTML = "delete";
+        del.addEventListener("click", () => {
+          books.splice(i, 1);
+          localStorage.setItem("books", JSON.stringify(books));
+          ui(books);
+        });
+        let buy = document.createElement("button");
+        buy.innerHTML = "buy";
+        buy.addEventListener("click", () => {
+          buys.push(ele);
+          localStorage.setItem("buy", JSON.stringify(buys));
+        });
+        let div = document.createElement("div");
+        div.append(index, img, titel, price, category, del, buy);
 
-            let del = document.createElement('button');
-            del.innerHTML = "delete"
-            del.addEventListener('click', () => {
-                books.splice(i, 1);
-                localStorage.setItem("books", JSON.stringify(books))
-                ui(books)
-            })
-            let buy = document.createElement('button');
-            buy.innerHTML = "buy"
-            buy.addEventListener('click', () => {
-                buys.push(ele)
-                localStorage.setItem("buy", JSON.stringify(buys))
-            });
-            let div = document.createElement('div');
-            div.append(index, img, titel, price, category, del,buy)
+        document.getElementById("ui").append(div);
+      });
+    };
 
-            document.getElementById("ui").append(div)
+    ui(books);
 
-        })
-    }
+    const Sorting = (val) => {
+      if (val == "low") {
+        let data = books.sort((a, b) => a.price - b.price);
+        ui(data);
+      } else {
+        let data = books.sort((a, b) => b.price - a.price);
+        ui(data);
+      }
+    };
 
-    ui(books)
-</script>
+    const Filter = (val) => {
+      let temp = books.filter((ele) => ele.category == val);
+      ui(temp);
+    };
 
+    const Serach_Filter = (val) => {
+      let add_temp = books.filter((ele) => ele.titel.includes(val));
+      ui(add_temp);
+    };
+    const serach = (e) => {
+      e.preventDefault();
+      let Serach_Title = document.querySelector("#Search").value;
+      Serach_Filter(Serach_Title);
+    };
+
+    document
+      .querySelector("#lth")
+      .addEventListener("click", () => Sorting("low"));
+    document
+      .querySelector("#htl")
+      .addEventListener("click", () => Sorting("high"));
+    document
+      .querySelector("#Historical")
+      .addEventListener("click", () => Filter("Historical"));
+    document
+      .querySelector("#Horror")
+      .addEventListener("click", () => Filter("Horror"));
+    document
+      .querySelector("#Science")
+      .addEventListener("click", () => Filter("Science"));
+    document.querySelector("#serach").addEventListener("submit", serach);
+  </script>
 </html>
